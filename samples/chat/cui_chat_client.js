@@ -1,10 +1,10 @@
 // var LindaClient = require('linda').Client
 var LindaClient = require('../../').Client;
-
-var socket = require('socket.io-client').connect('http://localhost:8931');
+//var server_url = "https://linda-server.herokuapp.com";
+var socket = require('socket.io-client').connect('https://pakaruland.herokuapp.com/');
 
 var linda = new LindaClient().connect(socket);
-var ts = linda.tuplespace('chatroom1');
+var ts = linda.tuplespace('pakaruland');
 
 linda.io.on('connect', function(){
   console.log('connect!!!');
