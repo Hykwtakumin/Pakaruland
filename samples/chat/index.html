@@ -1,11 +1,12 @@
 <html>
   <head>
     <title>Pakaru Land</title>
+	<meta charset="UTF-8">
   </head>
   <body>
     <h1>Pakaru Land</h1>
     <p>
-      name: <input type="text" value="test" id="name">
+      name: <input type="text" value="" id="name">
     </p>
     <div id="rooms"></div>
     <input type="text" value="" id="msg_body" />
@@ -20,8 +21,9 @@
 
       var server_url = "https://pakaruland.herokuapp.com/";
 
+
       var print = function(msg){
-        $("#log").prepend( $("<p>").text(msg) );
+        $("#log").append( $("<p>").text(msg));
       };
 
       // connect Socket.IO & Linda
@@ -29,12 +31,20 @@
       var linda = new Linda().connect(socket);
       var ts = linda.tuplespace("pakaruland");
 
+	  if (window.localStorage) document.getElementById("name").value = localStorage.name;
+	  var myName = document.getElementById("name").value;
+	  if (window.localStorage) localStorage.name = myName;
+
       linda.io.on("connect", function(){
-        print("connect!! " + server_url + "/pakaruland");
+        print("connect!!");
 
         // receive chat messages
         ts.watch({type: "chat"}, function(err, tuple){
-          print("> " + tuple.data.message);
+		const message = tuple.data.message;
+          print(tuple.data.who + "> " + tuple.data.message);
+		  if( message.match(/殺す|ナイフで滅多刺し|爆破|/g) ){
+			  print("↑はい開示" + tuple.from + "("+　message　+")");
+		  }
           //"(from:" + tuple.from +")
         });
       });
@@ -45,7 +55,10 @@
         // send chat message
         $("#btn_send").click(function(){
           var msg = $("#msg_body").val();
-          ts.write({type: "chat", message: msg});
+          ts.write({
+			  who: myName,
+			  type: "chat", message: msg
+		  		});
         });
       });
 
