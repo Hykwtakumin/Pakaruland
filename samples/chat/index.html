@@ -42,11 +42,16 @@
         ts.watch({type: "chat"}, function(err, tuple){
 		const message = tuple.data.message;
           print(tuple.data.who + "> " + tuple.data.message);
-		  if( message.match(/殺す|ナイフで滅多刺し|爆破|/g) ){
-			  print("↑はい開示" + tuple.from + "("+　message　+")");
+		  if( message.match(/殺す|ナイフで滅多刺し|爆破|/) ){
+			  print("↑はい開示" + tuple.from);
+			  //"("+　message　+")"
+		  }else{
+
 		  }
           //"(from:" + tuple.from +")
         });
+
+
       });
 
       // on page load
