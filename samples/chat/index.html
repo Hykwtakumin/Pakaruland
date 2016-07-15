@@ -2,17 +2,29 @@
   <head>
     <title>Pakaru Land</title>
 	<meta charset="UTF-8">
+      <!-- Compiled and minified CSS -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+
+      <!-- Compiled and minified JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+
   </head>
   <body>
     <h1>Pakaru Land</h1>
-    <p>
-      name: <input type="text" value="" id="name">
-    </p>
-    <div id="rooms"></div>
+    <div class="row">
+        <div class="input-field col s6">
+            name:  <input type="text" value="" id="name">
+        </div>
+        <a class="waves-effect waves-light btn" value="send" id="btn_send">送信</a>
+    <!--<div id="rooms"></div>-->
+        <div class="input-field col s12">
     <input type="text" value="" id="msg_body" />
-    <input type="button" value="send" id="btn_send" />
+            </div>
+    </div>
+
     <div id="log"></div>
-    <hr />
+
+    <hr/>
     <a href="https://github.com/node-linda/linda">https://github.com/node-linda/linda</a>
     <script src="https://pakaruland.herokuapp.com/js/jquery.min.js"></script>
     <script src="https://pakaruland.herokuapp.com/socket.io/socket.io.js"></script>
