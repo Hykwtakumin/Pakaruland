@@ -17,7 +17,7 @@
         </div>
         <a class="waves-effect waves-light btn" value="send" id="btn_send">送信</a>
     <!--<div id="rooms"></div>-->
-        <div class="input-field col s12">
+        <div class="input-field col s8">
     <input type="text" value="" id="msg_body" />
             </div>
     </div>
@@ -30,10 +30,7 @@
     <script src="https://pakaruland.herokuapp.com/socket.io/socket.io.js"></script>
     <script src="https://pakaruland.herokuapp.com/linda/linda.js"></script>
     <script>
-
       var server_url = "https://pakaruland.herokuapp.com/";
-
-
       var print = function(msg){
         $("#log").append( $("<p>").text(msg));
       };
@@ -52,29 +49,25 @@
 
         // receive chat messages
         ts.watch({type: "chat"}, function(err, tuple){
+        const user = tuple.data.who;
 		const message = tuple.data.message;
           print(tuple.data.who + "> " + tuple.data.message);
-		  if( message.match(/殺す|ナイフで滅多刺し|爆破|/) ){
-			  print("↑はい開示" + tuple.from);
-			  //"("+　message　+")"
-		  }else{
 
-		  }
-          //"(from:" + tuple.from +")
         });
 
-
+          ts.watch({type: "chat", message: "殺す"}, function(err, tuple){
+              print("↓はい開示" + tuple.from);
+          });
       });
 
       // on page load
       jQuery(function(){
-
         // send chat message
         $("#btn_send").click(function(){
+          var who = $("#name").val();
           var msg = $("#msg_body").val();
           ts.write({
-			  who: myName,
-			  type: "chat", message: msg
+			  type: "chat", who: who, message: msg
 		  		});
         });
       });

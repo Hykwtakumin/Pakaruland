@@ -13,7 +13,6 @@ linda.io.on('connect', function(){
     const user = tuple.data.who;
     const message = tuple.data.message;
       console.log(user + "<" + message);
-      //document.getElementById(puser).src = "images/l/" + pmessages + ".jpg";
   });
 });
 
@@ -21,6 +20,7 @@ process.stdin.setEncoding('utf8');
 process.stdin.on('data', function(data){
   ts.write({
     type: "chat",
+    who: data.replace(/[\r\n]/g, ''),
     message: data.replace(/[\r\n]/g, '')
   });
 });
